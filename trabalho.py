@@ -1,5 +1,8 @@
 import os
 
+dados_clientes = { '84999000466': ["João Vitor","S"]
+}
+
 resp = 10
 
 while (resp != 0): 
@@ -51,16 +54,18 @@ while (resp != 0):
         
         if resp1 == '1':
             os.system('cls || clear')
-            print(f"{'=/'*17}\\")
+            print('='*36)
             print(f" \033[1;35m {'CADASTRAR CLIENTES':.^34} \033[m ")
-            print(fr"/|/{'-'*30}\|")
-            nome = input("/|/>>Nome: ")
-            print(fr"/|/{'='*30}\|")
-            numero = input("/|/>>Número: ( ) ")
-            print(fr"/|/{'-'*30}\|")
-            contato = input("/|/>>Primeira vez: [S/N]").upper()
-            print(fr"/(/{'-'*30}\)|")
+            print('='*36)
+            nome = input("|-- Nome: ")
+            print("-" * 30)
+            numero = input("|-- Número: ( ) ")
+            print("-" * 30)
+            contato = input("|-- Primeira vez: [S/N] ").upper()
+            print("=" * 36)
             print()
+            dados_clientes[numero] = [nome,contato]
+            print("Cliente: ",dados_clientes)
             print(f" \033[1;35m {'Realizando cadastro...'} \033[m ")
             alerta =(r"""
             >>=====================<<
@@ -71,21 +76,29 @@ while (resp != 0):
             """)
             print(f"\033[1;33m {alerta} \033[m ")
             print()
+            input("Tecle <ENTER> para continuar...")
         elif resp1 == '2':
            os.system('cls || clear')
-           print(f"{'=/'*17}\\")
+           print('='*36)
            print(f" \033[1;35m {'ATUALIZAR CLIENTE':.^34} \033[m ")
-           print(fr"/|/{'-'*30}\|")
-           pesquisa = input("Insira o nome do cliente,\npara pesquisar o seu cadastro: ")
-           print("Cliente encontrado, atualize seus dados!!")       
-           nome = input("/|/>>Nome: ")
-           print(fr"/|/{'='*30}\|")
-           numero = input("/|/>>Número: ( ) ")
-           print(fr"/|/{'-'*30}\|")
-           contato = input("/|/>>Primeira vez: [S/N]").upper()
-           print(fr"/(/{'-'*30}\)|")
+           print('='*36)
+           numero = input("Insira o numero do cliente,\npara atualizar o seu cadastro: ")
            print()
-           print(f" \033[1;35m {'Realizando atualizações...'} \033[m ")
+           if numero in dados_clientes:     
+               print("|-- Dados atuais da cliente: ")  
+               print("|-- Nome: ",dados_clientes[numero][0])
+               print("|-- Primeira vez: ",dados_clientes[numero][1])
+               print("=" * 36)
+               print()
+               print(" \033[1;35m Digite os novos dados: \033[m ")
+               nome = input("|-- Nome: ")
+               print("-" * 30)
+               contato = input("|-- Primeira vez: [S/N] ").upper()
+               print("=" * 36)
+               dados_clientes[numero] = [nome,contato]
+           else:
+              print(" \033[1;31m Cliente não encontrada no sistema! \033[m ")
+              print()
            alerta =(r"""
             >>=====================<<
             ||   ESTE MODULO AINDA ||
@@ -94,21 +107,24 @@ while (resp != 0):
             >>=====================<<
             """)
            print(f"\033[1;33m {alerta} \033[m ")
-           print()         
+           print()      
+           input("Tecle <ENTER> para continuar...")   
         elif resp1 == '3':
            os.system('cls || clear')
-           print(f"{'=/'*17}\\")
+           print('='*36)
            print(f" \033[1;35m {'PESQUISAR CLIENTE':.^34} \033[m ")
-           print(fr"/|/{'-'*30}\|")
-           pesquisa = input("Insira o nome do cliente, \npara pesquisar: ")
-           print("Cliente encontrado!!")       
-           print(f"/|/>>Nome: {pesquisa}")
-           print(fr"/|/{'='*30}\|")
-           print("/|/>>Número: (84)98727-1562 ")
-           print(fr"/|/{'-'*30}\|")
-           print("/|/>>Primeira vez: [S]")
-           print(fr"/(/{'-'*30}\)|")
+           print('='*36)
+           numero = input("Insira o número do cliente, \npara pesquisar: ")
            print()
+           if numero in dados_clientes:
+               print(" \033[1;35m Dados cadastrados: \033[m ")
+               print("|-- Nome: ",dados_clientes[numero][0],"--|")
+               print("|-- Primeira vez: ",dados_clientes[numero][1],"--|")
+               print()
+           else:
+              print()
+              print(" \033[1;31m Cliente não encontrado no sistema! \033[m ")
+              print()
            print(f" \033[1;35m {'Pesquisa concluida...'} \033[m ")
            alerta =(r"""
             >>=====================<<
@@ -119,14 +135,29 @@ while (resp != 0):
             """)
            print(f"\033[1;33m {alerta} \033[m ")
            print()  
+           input("Tecle <ENTER> para continuar...")
+           
         elif resp1 == '4':
            os.system('cls || clear')
-           print(f"{'=/'*17}\\")
+           print('='*36)
            print(f" \033[1;35m {'EXCLUIR CLIENTE':.^34} \033[m ")
-           print(fr"/|/{'-'*30}\|")
-           excluir = input("Insira o nome do cliente, \npara excluir: ")
-           print(f" \033[1;35m {'Cliente excluído':.^34} \033[m ")      
-           print(fr"/(/{'-'*30}\)|")
+           print('='*36)
+           numero = input("Insira o numero do cliente, \npara excluir: ")
+           if numero in dados_clientes:
+              print("|-- Dados atuais da cliente: ")  
+              print("|-- Nome: ",dados_clientes[numero][0])
+              print("|-- Primeira vez: ",dados_clientes[numero][1])
+              verificar = input("Tecle 's' para confirmar exclusão...")
+              if verificar.lower() == 's':
+                  del dados_clientes[numero]
+                  print(f" \033[1;33m {'Exclusão do cliente concluída...'} \033[m ")
+                  print()
+                  print("Cliente:",dados_clientes)
+              else:
+                  print(f" \033[1;35m {'exclusão cancelada ツ...'} \033[m ")
+           else:
+                  print(f" \033[1;33m {'Cliente não encontrado!'} \033[m ")
+                  print()        
            print()
            alerta =(r"""
             >>=====================<<
@@ -137,6 +168,7 @@ while (resp != 0):
             """)
            print(f"\033[1;33m {alerta} \033[m ")
            print()  
+           input("Tecle <ENTER> para continuar...")
         elif resp1 == '0':
             saida = (r"""
             >>======================<<
@@ -148,6 +180,7 @@ while (resp != 0):
             >>======================<<
             """)     
             print(f" \033[1;35m {saida} \033[m ")
+            input("Tecle <ENTER> para continuar...")
         
 
     elif resp == '2':
@@ -318,7 +351,7 @@ while (resp != 0):
            #falta 3,4
     elif resp == '4':
         os.system('cls || clear')
-        print(fr"{'=/'*17}\\")
+        print('='*36)
         print(fr"|{'MODÚLO RELATÓRIO':.^34}|")
         print(fr"/|!/{'_'*30}\|")
         print(fr"/|{'_(1)-FATURAMENTO TOTAL: _':.^32}\|")
@@ -329,7 +362,11 @@ while (resp != 0):
         print(fr"{'=/'*17}\\")
         print()
         resp4 = input("Selecione uma das opções: ")
-        print()     
+        print()    
+        if resp4 == 1:
+           print('='*36)
+           print(f" \033[1;35m {'FATURAMENTO TOTAL':.^34} \033[m ")
+           print('='*36) 
     elif resp == '5':
         os.system('cls || clear')
         saida = (r"""
