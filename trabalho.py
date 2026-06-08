@@ -3,6 +3,11 @@ import os
 dados_clientes = { '84999000466': ["João Vitor","S"]
 }
 
+dados_servicos = {'1234' : ["Mão", "25.00", "1 hora"]
+}
+dados_agendamentos = {'id_agendamento' : ["84999000466","1234","09/06","16:45"]
+}
+
 resp = 10
 
 while (resp != 0): 
@@ -188,7 +193,7 @@ while (resp != 0):
         print(fr"|{'MODÚLO SERVIÇOS':.^34}|")
         print(fr"/|!/{'_'*30}\|")
         print(fr"/|{'_(1)-CADASTRAR NOVO SERVIÇO _':.^32}\|")
-        print(fr"/|{'_(2)-TABELA DE PREÇOS _':.^32}\|")
+        print(fr"/|{'_(2)-PESQUISAR SERVIÇO _':.^32}\|")
         print(fr"/|{'_(3)-ALTERAR _':.^32}\|")
         print(fr"/|{'_(4)-EXCLUIR _':.^32}\|")
         print(fr"/|{'_(0)-SAIR _':.^32}\|")
@@ -198,75 +203,123 @@ while (resp != 0):
         resp2 = input("Selecione uma das opções: ")
         print()
         if resp2 == '1':
-            os.system('clear')
-            print(f"{'=/'*17}\\")
-            print(f" \033[1;35m {'CADASTRAR NOVO SERVIÇO':.^34} \033[m ")
-            print(fr"/|!/{'-'*30}\|")
-            servico = input("/|!/>>NOME DO SERVIÇO: ")
-            print(fr"/|!/{'='*30}\|")
-            valor = input("/|!/>>VALOR (R$): ")
-            print(fr"/|!/{'-'*30}\|")
-            tempo = input("/|!/>>DURAÇÃO ESTIMADA: ").upper()
-            print(fr"/(/{'-'*30}\)|")
-            print()
-            print(f" \033[1;35m {'Serviço cadastrado ...'} \033[m ")
-            alerta =(r"""
+           os.system('cls || clear')
+           print('=' * 36)
+           print(f" \033[1;35m {'CADASTRAR NOVO SERVIÇO':.^34} \033[m ")
+           print('=' * 36)
+           id_servico = input("|-- Código/ID do Serviço:   ")
+           print('=' * 36) 
+           servico = input("|-- Nome do Serviço:   ")
+           print('-' * 36)
+           valor = input("|-- Valor (R$):        ")
+           print('-' * 36)
+           tempo = input("|-- Duração Estimada:  ").upper()
+           print('=' * 36)
+           print()
+           dados_servicos[id_servico] = [servico, valor, tempo]
+           print("Serviços: ",dados_servicos)
+           print(f" \033[1;35m {'Serviço cadastrado ...'} \033[m ")
+           alerta =(r"""
             >>=====================<<
             ||   ESTE MODULO AINDA ||
             ||   SENDO PREPARADO   ||
             ||                     ||
             >>=====================<<
             """)
-            print(f"\033[1;33m {alerta} \033[m ")
-            print()
+           print(f"\033[1;33m {alerta} \033[m ")
+           print()
+           input("Tecle <ENTER> para continuar...")
         elif resp2 == '2':
            os.system('cls || clear')
-           print(f"{'=/'*17}\\")
-           print(f" \033[1;35m {'TABELA DE PREÇOS':.^34} \033[m ")
-           print(fr"/|/{'-'*30}\|")
-           print("Manicure Tradicional: R$ 35,00")
-           print("Pedicure Tradicional: R$ 40,00")
-           print("Combo Pé e Mão Completo: R$ 70,00") 
-           print("Esmaltação Simples \n(Sem cutícula): R$ 20,00")  
-           print(fr"/|/{'='*30}\|")
+           print('='*36)
+           print(f" \033[1;35m {'PESQUISAR SERVIÇO':.^34} \033[m ")
+           print('='*36)
+           id_servico = input("Insira o ID do serviço, \npara pesquisar: ")
+           print()
+           if id_servico in dados_servicos:
+               print(" \033[1;35m Serviços cadastrados: \033[m ")
+               print("|-- Nome do serviço: ",dados_servicos[id_servico][0],"--|")
+               print("|-- Valor do serviço: ",dados_servicos[id_servico][1],"--|")
+               print("|-- Duração estimada: ",dados_servicos[id_servico][2],"--|")
+               print("=" * 36)
+               print()
+           else:
+              print()
+              print(" \033[1;31m Serviços não encontrado no sistema! \033[m ")
+              print()
+           print(f" \033[1;35m {'Pesquisa de serviços concluida...'} \033[m ")
            alerta =(r"""
-            >>=====================<<
-            ||   ESTE MODULO AINDA ||
-            ||   SENDO PREPARADO   ||
-            ||                     ||
-            >>=====================<<
-            """)
+                >>=====================<<
+                ||   ESTE MODULO AINDA ||
+                ||   SENDO PREPARADO   ||
+                ||                     ||
+                >>=====================<<
+                """)
            print(f"\033[1;33m {alerta} \033[m ")
            print()
+           input("Tecle <ENTER> para continuar...")
         elif resp2 == '3':
            os.system('cls || clear')
-           print(f"{'=/'*17}\\")
-           print(f" \033[1;35m {'ALTERAR':.^34} \033[m ")
-           print(fr"/|/{'-'*30}\|")
-           servico = input("Insira o nome do serviço, \npara alterar:  ")      
-           print(f"/|/>>Nome: {servico}")
-           print(fr"/|/{'='*30}\|")
-           preco = input("Informe o novo preço R$: ")
-           print(fr"/(/{'-'*30}\)|")
+           print('='*36)
+           print(f" \033[1;35m {'ALTERAR SERVIÇO':.^34} \033[m ")
+           print('='*36)
+           id_servico = input("Insira o id do serviço, \npara alterar:  ")      
            print()
-           print(f" \033[1;35m {'alteração concluída...'} \033[m ")
-           alerta =(r"""
+           if id_servico in dados_servicos:
+               print(" \033[1;35m Dados dos serviços cadastrados: \033[m ")
+               print("|-- Nome do serviço: ",dados_servicos[id_servico][0],"--|")
+               print("|-- Valor do serviço: ",dados_servicos[id_servico][1],"--|")
+               print("|-- Duração estimada: ",dados_servicos[id_servico][2],"--|")
+               print("=" * 36)
+               print()
+               print(" \033[1;35m Digite os novos dados: \033[m ")
+               servico = input("|-- Nome do Serviço:   ")
+               print('-' * 36)
+               valor = input("|-- Valor (R$):        ")
+               print('-' * 36)
+               tempo = input("|-- Duração Estimada:  ").upper()
+               print('=' * 36)
+               dados_servicos[id_servico] = [servico,valor,tempo]
+               print()
+               print(f" \033[1;35m {'alteração concluída...'} \033[m ")
+
+           else:
+               print(" \033[1;31m Serviço não encontrado no sistema! \033[m ")
+               print()
+               alerta =(r"""
             >>=====================<<
             ||   ESTE MODULO AINDA ||
             ||   SENDO PREPARADO   ||
             ||                     ||
             >>=====================<<
             """)
-           print(f"\033[1;33m {alerta} \033[m ")
-           print()  
+               print(f"\033[1;33m {alerta} \033[m ")
+               print() 
+               input("Tecle <ENTER> para continuar...")   
         elif resp2 == '4':
            os.system('cls || clear')
-           print(f"{'=/'*17}\\")
+           print('='*36)
            print(f" \033[1;35m {'EXCLUIR SERVIÇO':.^34} \033[m ")
-           print(fr"/|/{'-'*30}\|")
-           excluir = input("Insira o nome do serviço, \npara excluir: ")
-           print(f" \033[1;35m {'serviço excluído':.^34} \033[m ")      
-           print(fr"/(/{'-'*30}\)|")
+           print('='*36)
+           id_servico = input("Insira o ID do serviço, \npara excluir: ")
+           if id_servico in dados_servicos:
+               print(" \033[1;35m Dados dos serviços cadastrados: \033[m ")
+               print("|-- Nome do serviço: ",dados_servicos[id_servico][0],"--|")
+               print("|-- Valor do serviço: ",dados_servicos[id_servico][1],"--|")
+               print("|-- Duração estimada: ",dados_servicos[id_servico][2],"--|")
+               print("=" * 36)
+               print()
+               verificar = input("Tecle 's' para confirmar exclusão...")
+               if verificar.lower() == 's':
+                  del dados_servicos[id_servico]
+                  print(f" \033[1;33m {'Exclusão do serviço concluída...'} \033[m ")
+                  print()
+                  print("Serviço:",dados_servicos)  
+               else:
+                  print(f" \033[1;35m {'exclusão cancelada ツ...'} \033[m ")
+           else:
+              print(f" \033[1;33m {'Serviço não encontrado!'} \033[m ")
+              print()  
            print()
            alerta =(r"""
             >>=====================<<
@@ -277,6 +330,7 @@ while (resp != 0):
             """)
            print(f"\033[1;33m {alerta} \033[m ")
            print()
+           input("Tecle <ENTER> para continuar...")
         elif resp2 == '0':
             saida = (r"""
             >>======================<<
@@ -293,26 +347,30 @@ while (resp != 0):
 
             
     elif resp == '3':
-        print(fr"{'=/'*17}\\")
-        print(fr"|{'MODÚLO AGENDAMENTO':.^34}|")
-        print(fr"/|!/{'_'*30}\|")
-        print(fr"/|{'_(1)-AGENDAR NOVO HORÁRIO _':.^32}\|")
-        print(fr"/|{'_(2)-VISUALIZAR AGENDA _':.^32}\|")
-        print(fr"/|{'_(3)-ALTERAR HORÁRIO _':.^32}\|")
-        print(fr"/|{'_(4)-CANCELAR _':.^32}\|")
-        print(fr"/|{'_(5)-SAIR _':.^32}\|")
-        print(fr"/|!/{'_'*30}\!")
-        print(fr"{'=/'*17}\\")
-        print()
+       os.system('cls || clear')
+       print('='*36)
+       print(f" \033[1;35m {'AGENDAR NOVO HORÁRIO':.^34} \033[m ")
+       print('='*36)
+       id_agendamento = input("Insira um ID para este agendamento: ")
+       print()
+       print(" \033[1;35m Digite os dados da marcação: \033[m ")
+       telefone = input("|-- Telefone da Cliente: ")
+       print('-' * 36)
+       id_servico = input("|-- ID do Serviço:       ")
+       print('-' * 36)
+       data = input("|-- Data (ex: 10/06):    ")
+       print('-' * 36)
+        horario = input("|-- Horário (ex: 14:30): ")
+        print('=' * 36)
         resp3 = input("Selecione uma das opções: ")
         print()
         if resp3 == '1':
             os.system('cls || clear')
-            print(f"{'=/'*17}\\")
+            print('='*36)
             print(f" \033[1;35m {'NOVO HORÁRIO':.^34} \033[m ")
-            cliente = input("/|!/>>NOME DO CLIENTE: ")
-            print(fr"/|!/{'-'*30}\|")
-            servic = input("/|!/>>SERVIÇO DESEJADO: ")
+            cliente = input("|-- Nome: ")
+            print('='*36)
+            servico = input("/|!/>>SERVIÇO DESEJADO: ")
             print(fr"/|!/{'-'*30}\|")
             horario = input("/|!/>>Informe o horário \n(HH:MM): ")
             print(fr"/|!/{'='*30}\|")
