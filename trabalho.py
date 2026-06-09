@@ -5,12 +5,12 @@ dados_clientes = { '84999000466': ["João Vitor","S"]
 
 dados_servicos = {'1234' : ["Mão", "25.00", "1 hora"]
 }
-dados_agendamentos = {'id_agendamento' : ["84999000466","1234","09/06","16:45"]
+dados_agendamentos = {'123' : ["84999000466","1234","09/06","16:45"]
 }
 
-resp = 10
+resp = '10'
 
-while (resp != 0): 
+while (resp != '0'): 
     os.system('cls || clear')
     mensagem = (r"""
  _   _         _  _               _
@@ -347,37 +347,40 @@ while (resp != 0):
 
             
     elif resp == '3':
-       os.system('cls || clear')
-       print('='*36)
-       print(f" \033[1;35m {'AGENDAR NOVO HORÁRIO':.^34} \033[m ")
-       print('='*36)
-       id_agendamento = input("Insira um ID para este agendamento: ")
-       print()
-       print(" \033[1;35m Digite os dados da marcação: \033[m ")
-       telefone = input("|-- Telefone da Cliente: ")
-       print('-' * 36)
-       id_servico = input("|-- ID do Serviço:       ")
-       print('-' * 36)
-       data = input("|-- Data (ex: 10/06):    ")
-       print('-' * 36)
-        horario = input("|-- Horário (ex: 14:30): ")
-        print('=' * 36)
+        os.system('cls || clear')
+        print(fr"{'=/'*17}\\")
+        print(fr"|{'MODÚLO AGENDAMENTO':.^34}|") 
+        print(fr"/|!/{'_'*30}\|")
+        print(fr"/|{'_(1)-AGENDAR NOVO HORÁRIO _':.^32}\|")
+        print(fr"/|{'_(2)-VISUALIZAR AGENDA _':.^32}\|")
+        print(fr"/|{'_(3)-ALTERAR HORÁRIO _':.^32}\|")
+        print(fr"/|{'_(4)-CANCELAR _':.^32}\|")
+        print(fr"/|{'_(0)-SAIR _':.^32}\|")
+        print(fr"/|!/{'_'*30}\!")
+        print(fr"{'=/'*17}\\")
+        print()
         resp3 = input("Selecione uma das opções: ")
         print()
         if resp3 == '1':
             os.system('cls || clear')
             print('='*36)
-            print(f" \033[1;35m {'NOVO HORÁRIO':.^34} \033[m ")
-            cliente = input("|-- Nome: ")
+            print(f" \033[1;35m {'AGENDAR NOVO HORÁRIO':.^34} \033[m ")
             print('='*36)
-            servico = input("/|!/>>SERVIÇO DESEJADO: ")
-            print(fr"/|!/{'-'*30}\|")
-            horario = input("/|!/>>Informe o horário \n(HH:MM): ")
-            print(fr"/|!/{'='*30}\|")
-            dia = input("/|!/>>Informe  dia [SEG/TER/QUAR/\nQUINT/SEX/SAB]: ")
-            print(fr"/(/{'-'*30}\)|")
+            id_agendamento = input("Código do agendamento: ")
             print()
-            print(f" \033[1;35m {'Horário cadastrado...'} \033[m ")
+            print(" \033[1;35m Digite os dados do agendamento: \033[m ")
+            cliente = input("|-- Nome do Cliente:     ")
+            print('-' * 36)
+            servico = input("|-- Serviço desejado:    ")
+            print('-' * 36)
+            dia = input("|-- Dia (Ex: SEG/SAB):   ")
+            print('-' * 36)
+            horario = input("|-- Horário (ex: 14:30): ")
+            print('=' * 36)
+            print()
+            dados_agendamentos[id_agendamento] = [cliente, servico, dia, horario]
+            print()
+            print(f" \033[1;35m {'Horário cadastrado com sucesso...'} \033[m ")
             alerta =(r"""
             >>=====================<<
             ||   ESTE MODULO AINDA ||
@@ -387,26 +390,126 @@ while (resp != 0):
             """)
             print(f"\033[1;33m {alerta} \033[m ")
             print()
+            input("Tecle <ENTER> para continuar...")
         elif resp3 == '2':
-           os.system('cls || clear')
-           print(f"{'=/'*17}\\")
-           print(f" \033[1;35m {'VISUALIZAR HORÁRIO':.^34} \033[m ")
-           print(fr"/|/{'-'*30}\|")
-           print("Manicure Tradicional: R$ 35,00")
-           print("Pedicure Tradicional: R$ 40,00")
-           print("Combo Pé e Mão Completo: R$ 70,00") 
-           print("Esmaltação Simples \n(Sem cutícula): R$ 20,00")  
-           print(fr"/|/{'='*30}\|")
-           alerta =(r"""
+          os.system('cls || clear')
+          print('='*36)
+          print(f" \033[1;35m {'VISUALIZAR HORÁRIO':.^34} \033[m ")
+          print('='*36)
+          id_agendamento = input("Insira o Código do agendamento: ")
+          print()
+          if id_agendamento in dados_agendamentos:
+            print(" \033[1;35m Dados da Marcação: \033[m ")
+            print("|-- Cliente: ", dados_agendamentos[id_agendamento][0])
+            print("|-- Serviço: ", dados_agendamentos[id_agendamento][1])
+            print("|-- Dia:     ", dados_agendamentos[id_agendamento][2])
+            print("|-- Horário: ", dados_agendamentos[id_agendamento][3])
+            print("=" * 36)
+            print()
+          else:
+            print(" \033[1;31m Agendamento não encontrado no sistema! \033[m ")
+            print()
+            print(f" \033[1;35m {'Pesquisa concluída...'} \033[m ")
+          alerta =(r"""
+          >>=====================<<
+          ||   ESTE MODULO AINDA ||
+          ||   SENDO PREPARADO   ||
+          ||                     ||
+          >>=====================<<
+          """)
+          print(f"\033[1;33m {alerta} \033[m ")
+          print()
+          input("Tecle <ENTER> para continuar...")
+        elif resp3 == '3':
+            os.system('cls || clear')
+            print('='*36)
+            print(f" \033[1;35m {'ALTERAR HORÁRIO':.^34} \033[m ")
+            print('='*36)
+            id_agendamento = input("Insira o Código do agendamento \npara alterar: ")
+            print()
+            if id_agendamento in dados_agendamentos:
+               print(" \033[1;35m Dados da Marcação: \033[m ")             
+               print("|-- Cliente: ", dados_agendamentos[id_agendamento][0])
+               print("|-- Serviço: ", dados_agendamentos[id_agendamento][1])
+               print("|-- Dia:     ", dados_agendamentos[id_agendamento][2])
+               print("|-- Horário: ", dados_agendamentos[id_agendamento][3])
+               print("=" * 36)
+               print()
+               print(" \033[1;35m Digite os novos dados: \033[m ")
+               cliente = input("|-- Nome do Cliente:     ")
+               print('-' * 36)
+               servico = input("|-- Serviço desejado:    ")
+               print('-' * 36)
+               dia = input("|-- Dia (Ex: SEG/SAB):   ")
+               print('-' * 36)
+               horario = input("|-- Horário (ex: 14:30): ")
+               print('=' * 36)
+               dados_agendamentos[id_agendamento] = [cliente, servico, dia, horario]
+               print()
+               print(f" \033[1;35m {'Alteração concluída...'} \033[m ")
+            else:
+                print(" \033[1;31m Agendamento não encontrado no sistema! \033[m ")
+                print()
+                alerta =(r"""
             >>=====================<<
             ||   ESTE MODULO AINDA ||
             ||   SENDO PREPARADO   ||
             ||                     ||
             >>=====================<<
             """)
-           print(f"\033[1;33m {alerta} \033[m ")
-           print()
-           #falta 3,4
+            print(f"\033[1;33m {alerta} \033[m ")
+            print()
+            input("Tecle <ENTER> para continuar...")
+        elif resp3 == '4':
+            os.system('cls || clear')
+            print('='*36)
+            print(f" \033[1;35m {'CANCELAR HORÁRIO':.^34} \033[m ")
+            print('='*36)
+            id_agendamento = input("Insira o Código do agendamento \npara cancelar: ")
+            print()
+            if id_agendamento in dados_agendamentos:
+               print(" \033[1;35m Dados da Marcação: \033[m ")             
+               print("|-- Cliente: ", dados_agendamentos[id_agendamento][0])
+               print("|-- Serviço: ", dados_agendamentos[id_agendamento][1])
+               print("|-- Dia:     ", dados_agendamentos[id_agendamento][2])
+               print("|-- Horário: ", dados_agendamentos[id_agendamento][3])
+               print("=" * 36)
+               print()
+               verificar = input("Tecle 's' para confirmar exclusão...")
+               if verificar.lower() == 's':
+                  del dados_agendamentos[id_agendamento]
+                  print(f" \033[1;33m {'Exclusão do agendamento concluída...'} \033[m ")
+                  print()
+                  print("Agendamento:",dados_agendamentos)  
+               else:
+                  print(f" \033[1;35m {'exclusão cancelada ツ...'} \033[m ")
+            else:
+                print(f" \033[1;33m {'Agendamento não encontrado!'} \033[m ")
+                print()  
+                print()  
+            alerta =(r"""
+            >>=====================<<
+            ||   ESTE MODULO AINDA ||
+            ||   SENDO PREPARADO   ||
+            ||                     ||
+            >>=====================<<
+            """)
+            print(f"\033[1;33m {alerta} \033[m ")
+            print()
+            input("Tecle <ENTER> para continuar...")
+        elif resp3 == '0':
+            saida = (r"""
+            >>======================<<
+            || <<< MÓDULO SAÍDA >>> ||
+            **************************
+            ||     OBRIGADO POR     ||
+            ||UTILIZAR O GERENCIADOR||
+            ||     NAILS HOUSE :)   ||
+            >>======================<<
+            """)     
+            print(f" \033[1;35m {saida} \033[m ")
+        
+
     elif resp == '4':
         os.system('cls || clear')
         print('='*36)
@@ -421,7 +524,7 @@ while (resp != 0):
         print()
         resp4 = input("Selecione uma das opções: ")
         print()    
-        if resp4 == 1:
+        if resp4 == '1':
            print('='*36)
            print(f" \033[1;35m {'FATURAMENTO TOTAL':.^34} \033[m ")
            print('='*36) 
@@ -450,9 +553,6 @@ while (resp != 0):
         >>======================<<
         """)
         print(f" \033[1;35m {saida} \033[m ")
-            
-            
-    break
 
     #fim da primeira parte
     
