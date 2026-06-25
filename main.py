@@ -1,9 +1,8 @@
-
 import pickle
 import validacao
 import clientes
 import servico
-import os
+import subprocess
 
 
 def recupera_dados_clientes():
